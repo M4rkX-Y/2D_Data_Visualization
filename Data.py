@@ -1,21 +1,30 @@
 import json
+import numpy as np
 
 
 class Data:
     def __init__(self, file_path):
         self.file_path = file_path
-        raw_data = self.read_file()
-        data = Butlr32_Parser().parse_raw(raw_data)
-        self.data = data
+        self.raw_data = self.read_file()
 
     def read_file(self):
         with open(self.file_path, "r") as file:
             return file.read()
 
+
+class Butlr32_Data(Data):
+    def __init__(self, file_path):
+        super().__init__(file_path)
+        self.parser = Butlr32_Parser()
+        data = self.parser.parse_raw(self.raw_data)
+        self.data = data
+
     def pop_frame(self):
         raw_frame = self.data.pop(0)
-        frame = Butlr32_Parser().parse_frame(raw_frame)
-        return frame
+        frame = self.parser.parse_frame(raw_frame)
+        array = np.array(frame)
+        norm_frame = (array - array.min()) / (array.max() - array.min())
+        return norm_frame
 
     def get_length(self):
         return len(self.data)
@@ -38,5 +47,6 @@ class Butlr32_Parser:
         return frame
 
 
-txt = Data("data\\standing_9_32x32_sensor.txt")
-print(txt.pop_frame())
+if __name__ == "__main__":
+    txt = Butlr32_Data("data\\standing_9_32x32_sensor.txt")
+    print(txt.pop_frame())
