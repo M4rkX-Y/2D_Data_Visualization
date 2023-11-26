@@ -1,7 +1,7 @@
 import pygame
 import sys
 import pygame_gui
-from Data import Butlr32_Data
+from Data import Butlr32_Data, Esoil_Data
 
 
 PIXEL_SIZE = 20
@@ -39,7 +39,8 @@ class PixelMap:
 
 def main():
     pygame.init()
-    data = Butlr32_Data("data\\standing_9_32x32_sensor.txt")
+    # data = Esoil_Data("./data/11_15_3x3_5.npy")
+    data = Butlr32_Data("./data/standing_9_32x32_sensor.txt")
     screen = pygame.display.set_mode((640, 640))
     pygame.display.set_caption("Pixel Map")
 

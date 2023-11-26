@@ -11,6 +11,26 @@ class Data:
         with open(self.file_path, "r") as file:
             return file.read()
 
+    def pop_frame(self):
+        raise NotImplementedError
+
+    def get_length(self):
+        raise NotImplementedError
+
+
+class Esoil_Data(Data):
+    def __init__(self, file_path):
+        self.data = np.load(file_path)
+
+    def pop_frame(self):
+        raw_frame = self.data.tolist().pop(0)
+        array = np.array(raw_frame)
+        norm_frame = (array - 0.2) / (0.3 - 0.2)
+        return norm_frame
+
+    def get_length(self):
+        return len(self.data)
+
 
 class Butlr32_Data(Data):
     def __init__(self, file_path):
