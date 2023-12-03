@@ -20,13 +20,14 @@ class Data:
 
 class Esoil_Data(Data):
     def __init__(self, file_path):
-        self.data = np.load(file_path)
+        self.data = np.load(file_path).tolist()
 
     def pop_frame(self):
-        raw_frame = self.data.tolist().pop(0)
+        raw_frame = self.data.pop(0)
         array = np.array(raw_frame)
-        norm_frame = (array - 0.2) / (0.3 - 0.2)
-        return norm_frame
+        norm_frame = (array - array.min()) / (array.max() - array.min())
+        norm_frame_reshaped = norm_frame.reshape(3, 3)
+        return norm_frame_reshaped
 
     def get_length(self):
         return len(self.data)
