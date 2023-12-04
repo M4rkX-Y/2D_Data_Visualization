@@ -5,7 +5,8 @@ import numpy as np
 class Data:
     def __init__(self, file_path):
         self.file_path = file_path
-        self.raw_data = self.read_file()
+        self.dimension = file_path.split("_")[-2]
+        self.type = file_path.split(".")[-1]
 
     def read_file(self):
         with open(self.file_path, "r") as file:
@@ -20,6 +21,7 @@ class Data:
 
 class Esoil_Data(Data):
     def __init__(self, file_path):
+        super().__init__(file_path)
         self.data = np.load(file_path).tolist()
 
     def pop_frame(self):
@@ -36,6 +38,7 @@ class Esoil_Data(Data):
 class Butlr32_Data(Data):
     def __init__(self, file_path):
         super().__init__(file_path)
+        self.raw_data = self.read_file()
         self.parser = Butlr32_Parser()
         data = self.parser.parse_raw(self.raw_data)
         self.data = data
