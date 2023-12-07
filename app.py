@@ -3,7 +3,7 @@ import sys
 import pygame_gui
 from tkinter import filedialog
 from scipy.ndimage import zoom
-from data import Butlr32_Data, Esoil_Data
+from data_structure import Butlr32_Data, Esoil_Data
 
 
 SCREEN_SIZE = 650, 750
