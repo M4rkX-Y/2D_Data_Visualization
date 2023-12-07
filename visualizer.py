@@ -37,7 +37,6 @@ class PixelMap:
 class SmoothPixelMap(PixelMap):
     def __init__(self, pixel_map):
         super().__init__(pixel_map)
-        self.pixels = []
         self.size *= 2
         self.pixel_size = DISPLAY_SIZE / self.size
         smooth_pixel_map = zoom(pixel_map, zoom=2, order=1)
