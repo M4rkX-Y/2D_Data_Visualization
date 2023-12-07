@@ -41,7 +41,10 @@ Provide instructions and examples for use. Include screenshots as needed.
 ## Credits
 
 pygame: http://pygame.org
+
 pygame_gui: https://pygame-gui.readthedocs.io
+
 numpy: https://numpy.org
+
 scipy: https://scipy.org
 
