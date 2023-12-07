@@ -23,20 +23,24 @@ pip install -r requirements.txt
 
 Run the program by running the App.py
 ```
-python App.py
+python app.py
 ```
 You will see the following user interface:
+
+<img src='assets/ss1.png' width='500'>
 
 Click the "Open File" button to open the file explore. Go to the /data folder in the repository to see sample data.
 You can open either .txt file or .npy file that has pre-recorded data at our lab (the person shadows are all my shadows under the sensors, no legal concerns).
 Now you will see the empty canvas has all the pixels displayed in grey scale:
 
+<img src='assets/ss2.png' width='500'>
+
 Now the "Play" and "Pause" buttons are activated, you can click them to start the recordings.
-The "Smooth" button doubles the resolution using interpolation.
+The "Smooth" button doubles the resolution using interpolation:
+
+<img src='assets/ss3.png' width='500'>
 
 Now Enjoy me walking in circles.
-
-Provide instructions and examples for use. Include screenshots as needed.
 
 ## Credits
 
