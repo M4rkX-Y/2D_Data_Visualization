@@ -28,7 +28,9 @@ class Esoil_Data(Data):
         raw_frame = self.data.pop(0)
         array = np.array(raw_frame)
         norm_frame = (array - array.min()) / (array.max() - array.min())
-        norm_frame_reshaped = norm_frame.reshape(3, 3)
+        norm_frame_reshaped = norm_frame.reshape(
+            int(pow(array.size, 0.5)), int(pow(array.size, 0.5))
+        )
         return norm_frame_reshaped
 
     def get_length(self):
@@ -69,6 +71,10 @@ class Butlr32_Parser:
         )
         frame = json.loads(clean_frame.split("array(")[1].split("),")[0])
         return frame
+
+
+def Hadamard(frame, mask):
+    return np.sum(np.multiply(frame, mask))
 
 
 if __name__ == "__main__":
