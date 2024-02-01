@@ -12,6 +12,7 @@ PLAY_BUTTON = (210, 40), (100, 40)
 PAUSE_BUTTON = (350, 40), (100, 40)
 SMOOTH_BUTTON = (490, 40), (120, 40)
 MASK_BUTTON = (650, 40), (120, 40)
+CLEAR_BUTTON = (800, 40), (120, 40)
 DISPLAY_SIZE = 576
 DISPLAY_POSITION = 40, 120
 MASK_POSITION = 650, 120
@@ -33,7 +34,6 @@ def main():
     play = False
     smooth = False
     mask = False
-    result_sum = 0
 
     frame = [[1]]
     pixel_map = PixelMap(frame, DISPLAY_POSITION, DISPLAY_SIZE)
@@ -66,6 +66,12 @@ def main():
     load_mask = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect(MASK_BUTTON),
         text="Load Mask",
+        manager=manager,
+    )
+
+    clear_button = pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect(CLEAR_BUTTON),
+        text="Clear",
         manager=manager,
     )
 
@@ -116,6 +122,17 @@ def main():
                         mask_frame = mask_data.pop_frame()
                         mask_map = PixelMap(mask_frame, MASK_POSITION, MASK_SIZE)
                         mask = True
+                if event.ui_element == clear_button:
+                    frame = [[1]]
+                    pixel_map = PixelMap(frame, DISPLAY_POSITION, DISPLAY_SIZE)
+                    mask_map = PixelMap(frame, MASK_POSITION, MASK_SIZE)
+                    result_map.clear()
+                    play = False
+                    smooth = False
+                    mask = False
+                    play_button.disable()
+                    pause_button.disable()
+                    load_mask.disable()
             manager.process_events(event)
         current_time = pygame.time.get_ticks()
         if current_time - last_toggle_time > 1000 / FPS:

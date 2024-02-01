@@ -36,6 +36,9 @@ class PixelMap:
     def modification(self, og_pixel_map):
         return og_pixel_map
 
+    def clear(self):
+        self.pixels = []
+
     def draw(self, surface):
         for pixel in self.pixels:
             pixel.draw(surface)
@@ -78,7 +81,6 @@ class ResultMap:
             figsize=[3, 2],
             dpi=100,
         )
-        self.fig.patch.set_alpha(1)
         self.ax = self.fig.gca()
         self.ax.plot(self.result)
 
@@ -89,6 +91,20 @@ class ResultMap:
 
     def add(self, result):
         self.result.append(result)
+        self.ax.plot(self.result)
+
+        canvas = agg.FigureCanvasAgg(self.fig)
+        canvas.draw()
+        renderer = canvas.get_renderer()
+        self.raw_data = renderer.tostring_rgb()
+
+    def clear(self):
+        self.result = []
+        self.fig = pylab.figure(
+            figsize=[3, 2],
+            dpi=100,
+        )
+        self.ax = self.fig.gca()
         self.ax.plot(self.result)
 
         canvas = agg.FigureCanvasAgg(self.fig)
